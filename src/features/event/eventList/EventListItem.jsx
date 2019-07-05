@@ -4,18 +4,18 @@ import EventListAttendee from './EventListAttendee'
 
 class EventListItem extends Component {
   render() {
+    const { title, hostedBy, date, description, hostPhotoURL, venue, attendees } = this.props.event;
     return (
       <div>
-        <h1>Event List Item</h1>
         <Segment.Group>
           <Segment>
             <Item.Group>
               <Item>
-                <Item.Image size="tiny" circular src="https://randomuser.me/api/portraits/women/55.jpg" />
+                <Item.Image size="tiny" circular src={hostPhotoURL} />
                 <Item.Content>
-                  <Item.Header as="a">Event Title</Item.Header>
+                  <Item.Header as="a">{title}</Item.Header>
                   <Item.Description>
-                    Hosted by <a>hosted by</a>
+                    Hosted by <a>{hostedBy}</a>
                   </Item.Description>
                 </Item.Content>
               </Item>
@@ -23,23 +23,16 @@ class EventListItem extends Component {
           </Segment>
           <Segment>
             <span>
-              <Icon name="clock" /> date |<Icon name="marker" /> time
-                  </span>
-          </Segment>
-          <Segment>
-            <span>
-              <Icon name="key" /> enter key |<Icon name="lightbulb" /> some tips
-                </span>
+              <Icon name="clock" /> {date} |<Icon name="marker" /> {venue}
+            </span>
           </Segment>
           <Segment secondary>
             <List horizontal>
-              <EventListAttendee />
-              <EventListAttendee />
-              <EventListAttendee />
+              {attendees.map(attendee => <EventListAttendee key={attendee.id} attendee={attendee} />)}
             </List>
           </Segment>
           <Segment clearing>
-            <span>Description will goes here</span>
+            <span>Description: {description}</span>
             <Button as="a" color="teal" floated="right" content="View" />
           </Segment>
         </Segment.Group>

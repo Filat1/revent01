@@ -2,12 +2,21 @@ import React, { Component } from 'react'
 import EventListItem from './EventListItem'
 
 class EventList extends Component {
+
+  // onEventEdit = () => {
+  //   this.props.onEventEdit();
+  // }
   render() {
-    const { events } = this.props;
-    console.log('events:', events)
+    const { events, onEventOpen, onEventDelete } = this.props;
+    let ItemList = {}
+    if (events !== null) {
+      ItemList = events.map(event => <EventListItem key={event.id} event={event}
+        onEventOpen={onEventOpen} onEventDelete={onEventDelete} />)
+    }
+    else { ItemList = {} }
     return (
       <div>
-        {events.map(event => <EventListItem key={event.id} event={event} />)}
+        {ItemList}
       </div>
     )
   }

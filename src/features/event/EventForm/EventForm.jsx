@@ -10,10 +10,31 @@ const emptyEvent = {
 }
 
 class EventForm extends Component {
-
   state = {
     event: emptyEvent
   }
+
+  componentDidMount() {
+    if (this.props.selectedEvent !== null) {
+      this.setState({
+        event: this.props.selectedEvent
+      })
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedEvent !== nextProps.selectedEvent) {
+      this.setState({
+        event: nextProps.selectedEvent || emptyEvent
+      })
+    }
+  }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (prevState.selectedEvent !== nextProps.selectedEvent) {
+  //     return {
+  //       event: nextProps.selectedEvent || emptyEvent
+  //     }
+  //   }
+  //   return null;}
 
   onSubmit = (evt) => {
     evt.preventDefault();
@@ -21,28 +42,6 @@ class EventForm extends Component {
       this.props.updatedEvent(this.state.event)
     } else {
       this.props.createEvent(this.state.event);
-    }
-  }
-
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   console.log('nextProps:', nextProps);
-  //   console.log('prevState:', prevState);
-  //   if (prevState.selectedEvent !== nextProps.selectedEvent) {
-  //     return {
-  //       event: nextProps.selectedEvent || emptyEvent
-  //     }
-  //   }
-  //   return null;
-  // }
-
-
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps:', nextProps);
-    console.log('this.props.selectedEvent:', this.props.selectedEvent);
-    if (this.props.selectedEvent !== nextProps.selectedEvent) {
-      this.setState({
-        event: nextProps.selectedEvent || emptyEvent
-      })
     }
   }
 

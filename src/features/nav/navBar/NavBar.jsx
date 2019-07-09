@@ -25,7 +25,7 @@ class NavBar extends Component {
     return (
       <Menu inverted fixed="top">
         <Container>
-
+          revent7redux
           <Menu.Item as={Link} to='/' header>
             <img src="/assets/logo.png" alt="logo" />
             Re-vents

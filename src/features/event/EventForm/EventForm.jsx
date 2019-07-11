@@ -1,61 +1,57 @@
 import React, { Component } from 'react'
 import { Segment, Form, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { createEvent, updateEvent } from '../eventActions'
+import cuid from 'cuid'
 
-const emptyEvent = {
-  title: "",
-  date: "",
-  city: "",
-  venue: "",
-  hostedBy: ""
+const mapStateToProps = (state, ownProps) => {
+  const eventId = ownProps.match.params.id
+  let event = {
+    title: "",
+    date: "",
+    city: "",
+    venue: "",
+    hostedBy: ""
+  }
+
+  if (eventId && state.eventsRdcr.length > 0) {
+    event = state.eventsRdcr.filter(e => e.id === eventId)[0]
+  }
+  return {
+    event
+  }
+}
+
+const mapDispatchToProps = {
+  createEvent,
+  updateEvent
 }
 
 class EventForm extends Component {
-  state = {
-    event: emptyEvent
-  }
 
-  componentDidMount() {
-    if (this.props.selectedEvent !== null) {
-      this.setState({
-        event: this.props.selectedEvent
-      })
-    }
+  state = {
+    event: Object.assign({}, this.props.event)
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.selectedEvent !== nextProps.selectedEvent) {
-      this.setState({
-        event: nextProps.selectedEvent || emptyEvent
-      })
-    }
-  }
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   if (prevState.selectedEvent !== nextProps.selectedEvent) {
-  //     return {
-  //       event: nextProps.selectedEvent || emptyEvent
-  //     }
-  //   }
-  //   return null;}
 
   onSubmit = (evt) => {
     evt.preventDefault();
     if (this.state.event.id) {
-      this.props.updatedEvent(this.state.event)
+      this.props.updateEvent(this.state.event)
+      this.props.history.goBack()
     } else {
-      this.props.createEvent(this.state.event);
+      const newEvent = {
+        ...this.state.event,
+        id: cuid(),
+        hostPhotoURL: '/assets/user.png'
+      }
+      this.props.createEvent(newEvent);
+      this.props.history.push('/events');
     }
   }
 
-
-
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-
-
-
   onInputChange = (evt) => {
-    //const newEvent = this.state.event;
-    const newEvent = JSON.parse(JSON.stringify(this.state.event));
+    const newEvent = this.state.event;
+    // const newEvent = JSON.parse(JSON.stringify(this.state.event));
     newEvent[evt.target.name] = evt.target.value
     this.setState({
       event: newEvent
@@ -63,11 +59,8 @@ class EventForm extends Component {
   }
 
 
-  onChangeState = () => {
-    this.setState({ event: { title: 'NOTHING TODAY' } })
-  }
-
   render() {
+    // const {handleCancel} = this.props;
     const { event } = this.state;
     return (
       <Segment>
@@ -93,12 +86,14 @@ class EventForm extends Component {
             <input name='hostedBy' onChange={this.onInputChange} value={event.hostedBy} placeholder="Enter the name of person hosting" />
           </Form.Field>
           <Button positive type="submit"> Submit</Button>
-          <Button type="button" onClick={this.props.handleCancel}>Cancel</Button>
-          <Button type="button" onClick={this.onChangeState}>Nothing</Button>
+          <Button onClick={this.props.history.goBack} type="button">Cancel</Button>Button>
         </Form>
       </Segment>
     )
   }
 }
 
-export default EventForm
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EventForm)

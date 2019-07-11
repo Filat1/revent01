@@ -1,12 +1,12 @@
 import { createReducer } from '../../app/common/util/reducerUtil';
-import { CREATE_EVENT, DELETE_EVENT, UPDATE_EVENT } from './eventConstants';
+import { CREATE_EVENT, DELETE_EVENT, UPDATE_EVENT } from './EventConstants';
 
 const initialState = [
   {
     id: '1',
     title: 'Trip to Redux Tower of London',
     date: '2020-03-27',
-    category: 'redux culture',
+    category: 'culture',
     description:
       'REdux Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
     city: 'London, UK',
@@ -30,7 +30,7 @@ const initialState = [
     id: '2',
     title: 'Trip to Redux Punch and Judy Pub',
     date: '2020-03-28',
-    category: 'redux drinks',
+    category: 'drinks',
     description:
       'Redux Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
     city: 'London, UK',
@@ -47,6 +47,11 @@ const initialState = [
         id: 'a',
         name: 'Bob',
         photoURL: 'https://randomuser.me/api/portraits/men/20.jpg'
+      },
+      {
+        id: 'c',
+        name: 'Dan',
+        photoURL: 'https://randomuser.me/api/portraits/men/25.jpg'
       }
     ]
   }

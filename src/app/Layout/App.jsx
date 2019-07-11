@@ -11,12 +11,14 @@ import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
 import HomePage from '../../features/home/HomePage'
 import EventDetailedPage from '../../features/event/EventDetailed/EventDetailedPage';
 import TestComponent from '../../features/testarea/TestComponent';
+import MyTest from '../../features/testarea/mytest';
 
 class App extends Component {
   render() {
     return (
       <div>
         <Switch>
+          <Route exact path='/mytest' component={MyTest} />
           <Route exact path='/' component={HomePage} />
         </Switch>
 
@@ -28,6 +30,7 @@ class App extends Component {
                 <Route path='/events' component={EventDashboard} />
                 <Route path='/test' component={TestComponent} />
                 <Route path='/event/:id' component={EventDetailedPage} />
+                <Route path='/manage/:id' component={EventForm} />
                 <Route path='/people' component={PeopleDashboard} />
                 <Route path='/profile/id' component={UserDetailedPage} />
                 <Route path='/settings' component={SettingsDashboard} />

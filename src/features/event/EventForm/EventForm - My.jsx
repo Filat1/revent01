@@ -4,11 +4,8 @@ import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import cuid from 'cuid'
 import moment from 'moment';
-import Script from 'react-load-script';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { composeValidators, combineValidators, isRequired, hasLengthGreaterThan } from 'revalidate'
 import { createEvent, updateEvent } from '../eventActions'
-import PlacesAutocomplete from 'react-places-autocomplete';
 import TextInput from './../../../app/common/form/TextInput';
 import TextArea from './../../../app/common/form/TextArea';
 import SelectInput from './../../../app/common/form/SelectInput';
@@ -55,43 +52,9 @@ const validate = combineValidators({
 })
 
 class EventForm extends Component {
-  state = {
-    cityLatLng: {},
-    venueLatLng: {},
-    scriptLoaded: false
-  };
-
-  handleScriptLoaded = () => this.setState({ scriptLoaded: true });
-
-  handleCitySelect = selectedCity => {
-    geocodeByAddress(selectedCity)
-      .then(results => getLatLng(results[0]))
-      .then(latlng => {
-        this.setState({
-          cityLatLng: latlng
-        });
-      })
-      .then(() => {
-        this.props.change('city', selectedCity)
-      })
-  };
-
-  handleVenueSelect = selectedVenue => {
-    geocodeByAddress(selectedVenue)
-      .then(results => getLatLng(results[0]))
-      .then(latlng => {
-        this.setState({
-          venueLatLng: latlng
-        });
-      })
-      .then(() => {
-        this.props.change('venue', selectedVenue)
-      })
-  };
 
   onFormSubmit = values => {
-    values.date = moment(values.date).format();
-    values.venueLatLng = this.state.venueLatLng;
+    values.date = moment(values.date).format()
     if (this.props.initialValues.id) {
       this.props.updateEvent(values);
       this.props.history.goBack();
@@ -110,10 +73,6 @@ class EventForm extends Component {
     const { invalid, submitting, pristine } = this.props;
     return (
       <Grid>
-        <Script
-          url="https://maps.googleapis.com/maps/api/js?key=AIzaSyA189dnP51evM5cuvqMmHQaQRZ-qcM1lMQ&libraries=places"
-          onLoad={this.handleScriptLoaded}
-        />
         <Grid.Column width={10}>
           <Segment>
             <Header sub color='teal' content='Event Details' />

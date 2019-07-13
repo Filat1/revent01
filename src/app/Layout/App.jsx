@@ -12,6 +12,7 @@ import HomePage from '../../features/home/HomePage'
 import EventDetailedPage from '../../features/event/EventDetailed/EventDetailedPage';
 import TestComponent from '../../features/testarea/TestComponent';
 import MyTest from '../../features/testarea/mytest';
+import LocationSearchInput from '../../features/testarea/LocationSearchInput';
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
               <Switch>
                 <Route path='/events' component={EventDashboard} />
                 <Route path='/test' component={TestComponent} />
+                <Route path='/autotest' component={LocationSearchInput} />
                 <Route path='/event/:id' component={EventDetailedPage} />
                 <Route path='/manage/:id' component={EventForm} />
                 <Route path='/people' component={PeopleDashboard} />

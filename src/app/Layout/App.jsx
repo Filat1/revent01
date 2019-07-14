@@ -13,11 +13,13 @@ import EventDetailedPage from '../../features/event/EventDetailed/EventDetailedP
 import TestComponent from '../../features/testarea/TestComponent';
 import MyTest from '../../features/testarea/mytest';
 import LocationSearchInput from '../../features/testarea/LocationSearchInput';
+import ModalManager from '../../features/modals/ModalManager'
 
 class App extends Component {
   render() {
     return (
       <div>
+        <ModalManager />
         <Switch>
           <Route exact path='/mytest' component={MyTest} />
           <Route exact path='/' component={HomePage} />

@@ -13,6 +13,12 @@ class EventDetailedInfo extends Component {
     }))
   }
 
+  componentWillUnmount() {
+    this.setState({
+      showMap: false
+    })
+  }
+
   render() {
     const { event } = this.props;
     return (
@@ -46,12 +52,12 @@ class EventDetailedInfo extends Component {
               <span>{event.venue}</span>
             </Grid.Column>
             <Grid.Column width={4}>
-              <Button onClick={this.showMapToggle} color="teal" size="tiny" content={this.state.showMap ? 'Hide Map' : 'Show Map'}/>
+              <Button onClick={this.showMapToggle} color="teal" size="tiny" content={this.state.showMap ? 'Hide Map' : 'Show Map'} />
             </Grid.Column>
           </Grid>
         </Segment>
         {this.state.showMap &&
-        <EventDetailedMap lat={event.venueLatLng.lat} lng={event.venueLatLng.lng}/>}
+          <EventDetailedMap lat={event.venueLatLng.lat} lng={event.venueLatLng.lng} />}
       </Segment.Group>
     );
   }

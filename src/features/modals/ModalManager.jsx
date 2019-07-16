@@ -16,6 +16,7 @@ const mapState = (state) => ({
 
 const ModalManager = ({ currentModal }) => {
   let renderedModal;
+  console.log('currentModal:', currentModal)
 
   if (currentModal) {
 
@@ -25,7 +26,8 @@ const ModalManager = ({ currentModal }) => {
 
     renderedModal = <ModalComponent {...modalProps} />
   }
-  return <span>{renderedModal}</span>
+  console.log('renderedModal:', renderedModal)
+  return (<span>{renderedModal}</span>)
 }
 
 export default connect(mapState)(ModalManager)

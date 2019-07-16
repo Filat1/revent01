@@ -9,7 +9,8 @@ const mapDispatchToProps = {
   login
 }
 
-const LoginForm = ({ login, handleSubmit }) => {
+const LoginForm = props => {
+  const { login, handleSubmit } = props;
   return (
     <Form error size="large" onSubmit={handleSubmit(login)}>
       <Segment>
@@ -33,4 +34,5 @@ const LoginForm = ({ login, handleSubmit }) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(reduxForm({ form: 'loginForm' })(LoginForm));
+export default connect(null, mapDispatchToProps)(
+  reduxForm({ form: 'loginForm' })(LoginForm));

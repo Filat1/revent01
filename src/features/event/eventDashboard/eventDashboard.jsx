@@ -3,10 +3,14 @@ import { Grid } from 'semantic-ui-react'
 import EventList from '../eventList/EventList'
 import { connect } from 'react-redux'
 import { deleteEvent } from '../eventActions'
+import LoadingComponent from '../../../app/layout/LoadingComponent'
+import EventActivity from '../EventActivity/EventActivity'
+
 
 const mapStateToProps = (state) => {
   return {
-    eventsFromStore: state.eventsRdcr
+    eventsFromStore: state.eventsRdcr,
+    loading: state.asyncRdcr.loading
   }
 }
 
@@ -21,6 +25,8 @@ class EventDashboard extends Component {
   }
 
   render() {
+    const { loading } = this.props;
+    if (loading) return <LoadingComponent inverted={true} />
     return (
       <Grid>
         <Grid.Column width={10}>
@@ -30,6 +36,7 @@ class EventDashboard extends Component {
           />
         </Grid.Column>
         <Grid.Column width={6}>
+          <EventActivity />
         </Grid.Column>
       </Grid>
     )

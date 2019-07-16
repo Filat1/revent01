@@ -7,7 +7,6 @@ import SignedInMenu from '../menu/SignedInMenu'
 import { openModal } from './../../modals/modalActions';
 import { logout } from '../../auth/authActions'
 
-
 const mapActionsToProps = {
   openModal,
   logout
